@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+{% load bootstrap5 %}
+{% block head %}
+    {{ form.media }}
+{% endblock head %}
+{% block title %}
+    Add Student
+{% endblock title %}
+{% block content %}
+    <div class="card shadow rounded">
+        <div class="card-header">
+            <h1>Add New Student</h1>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

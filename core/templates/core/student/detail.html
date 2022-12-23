@@ -1,0 +1,261 @@
+{% extends "core/base.html" %}
+{% load bootstrap5 %}
+{% block title %}
+    {{ student }}
+{% endblock title %}
+{% block content %}
+    <div class="card shadow rounded">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-9">
+                    <h1>{{ student }}</h1>
+                </div>
+                <div class="col-3 d-flex justify-content-end align-items-center">
+                    <form method="post" action="{% url 'student-update' pk=student.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-lg btn-primary">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-borderless">
+                <tr>
+                    <th>Name</th>
+                    <td>{{ student.name }}</td>
+                </tr>
+                <tr>
+                    <th>Roll Number</th>
+                    <td>{{ student.roll_number }}</td>
+                </tr>
+                <tr>
+                    <th>Date of Birth</th>
+                    <td>{{ student.date_of_birth }}</td>
+                </tr>
+                <tr>
+                    <th>Course</th>
+                    <td>{{ student.course }}</td>
+                </tr>
+                <tr>
+                    <th>CGPA</th>
+                    <td>{{ student.cgpa }}</td>
+                </tr>
+                <tr>
+                    <th>ACGPA</th>
+                    <td>{{ student.acgpa }}</td>
+                </tr>
+                <tr>
+                    <th>Last Updated</th>
+                    <td>{{ student.last_updated }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="card shadow rounded mt-4">
+        <div class="card-header">
+            <h2>Semesters</h2>
+        </div>
+        <div class="card-body table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Number</th>
+                        <th scope="col">Semester</th>
+                        <th scope="col">Credits Taken</th>
+                        <th scope="col">Credits Cleared</th>
+                        <th scope="col">Total Credits Taken</th>
+                        <th scope="col">Total Credits Cleared</th>
+                        <th scope="col">NCGPA</th>
+                        <th scope="col">CGPA</th>
+                        <th scope="col">SGPA</th>
+                        <th scope="col">
+                            Additional Credits Taken
+                        </th>
+                        <th scope="col">
+                            Additional Credits Cleared
+                        </th>
+                        <th scope="col">
+                            Additional Total Credits Taken
+                        </th>
+                        <th scope="col">
+                            Additional Total Credits Cleared
+                        </th>
+                        <th scope="col">
+                            ACGPA
+                        </th>
+                        <th scope="col">
+                            ASGPA
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for semester in semesters %}
+                        <tr>
+                            <th>
+                                {{ semester.number }}
+                            </th>
+                            <td>
+                                {{ semester.semester }}
+                            </td>
+                            <td>
+                                {{ semester.credits_taken }}
+                            </td>
+                            <td>
+                                {{ semester.credits_cleared }}
+                            </td>
+                            <td>
+                                {{ semester.total_credits_taken }}
+                            </td>
+                            <td>
+                                {{ semester.total_credits_cleared }}
+                            </td>
+                            <td>
+                                {{ semester.ncgpa }}
+                            </td>
+                            <td>
+                                {{ semester.cgpa }}
+                            </td>
+                            <td>
+                                {{ semester.sgpa }}
+                            </td>
+                            <td>
+                                {{ semester.addn_credits_taken }}
+                            </td>
+                            <td>
+                                {{ semester.addn_credits_cleared }}
+                            </td>
+                            <td>
+                                {{ semester.addn_total_credits_taken }}
+                            </td>
+                            <td>
+                                {{ semester.addn_total_credits_cleared }}
+                            </td>
+                            <td>
+                                {{ semester.acgpa }}
+                            </td>
+                            <td>
+                                {{ semester.asgpa }}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="13">
+                                No semesters found.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card shadow rounded mt-4">
+        <div class="card-header">
+            <h2>
+                Graphs
+            </h2>
+        </div>
+        <div class="card-body">
+            TBD
+        </div>
+    </div>
+    <div class="card shadow rounded mt-4">
+        <div class="card-header row">
+            <div class="col-10">
+                <h2>
+                    Subjects
+                </h2>
+            </div>
+            <div class="col-2 d-flex justify-content-end align-items-center">
+                <a class="btn btn-primary"
+                   data-bs-toggle="collapse"
+                   href="#collapseSubjects"
+                   role="button"
+                   aria-expanded="false"
+                   aria-controls="collapseSubjects">
+                    Expand
+                </a>
+            </div>
+        </div>
+        <div class="card-body table-responsive collapse" id="collapseSubjects">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            Code
+                        </th>
+                        <th scope="col">
+                            Name
+                        </th>
+                        <th scope="col">
+                            Credits
+                        </th>
+                        <th scope="col">
+                            Lectures
+                        </th>
+                        <th scope="col">
+                            Tutorials
+                        </th>
+                        <th scope="col">
+                            Practicals
+                        </th>
+                        <th scope="col">
+                            Type
+                        </th>
+                        <th scope="col">
+                            Grade
+                        </th>
+                    </tr>
+                </thead>
+                {% for semester in semesters %}
+                    <tbody class="table-group-divider">
+                        <tr>
+                            <th colspan="8">
+                                Semester {{ semester.number }}
+                            </th>
+                        </tr>
+                        {% for subject in semester.subjects.all %}
+                            <tr>
+                                <td>
+                                    {{ subject.subject.code }}
+                                </td>
+                                <td>
+                                    {{ subject.subject.name }}
+                                </td>
+                                <td>
+                                    {{ subject.subject.credits }}
+                                </td>
+                                <td>
+                                    {{ subject.subject.lectures }}
+                                </td>
+                                <td>
+                                    {{ subject.subject.tutorials }}
+                                </td>
+                                <td>
+                                    {{ subject.subject.practicals }}
+                                </td>
+                                <td>
+                                    {{ subject.sub_type }}
+                                </td>
+                                <td>
+                                    {{ subject.grade_letter }}
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="8">
+                                    No subjects found.
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% empty %}
+                        <tr>
+                            <td colspan="8">
+                                No subjects found.
+                            </td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock content %}

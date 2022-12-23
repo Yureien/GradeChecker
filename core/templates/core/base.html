@@ -1,0 +1,28 @@
+{# Load the tag library #}
+{% load bootstrap5 %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {% bootstrap_css %}
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+                integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+                crossorigin="anonymous"></script>
+        {% bootstrap_javascript %}
+        {% block head %}
+        {% endblock head %}
+        <title>
+            {% block title %}
+                GradeChecker
+            {% endblock title %}
+        </title>
+    </head>
+    <body>
+        {% bootstrap_messages %}
+        <div class="container my-4">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </body>
+</html>

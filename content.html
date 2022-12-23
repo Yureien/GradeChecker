@@ -1,0 +1,345 @@
+
+
+
+
+<!-- Header -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Students Details page</title>
+        <meta charset="windows-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"> 
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap-dialog.css"> 
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap-table.css">  
+        <link rel="stylesheet" href="../bootstrap/css/jquery.datetimepicker.css">  
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap-datetimepicker.css"> 
+        <script src="../bootstrap/js/jquery-1.11.1.min.js"></script>
+        <script src="../bootstrap/js/bootstrap.js"></script>
+        <script src="../bootstrap/js/bootstrap-dialog.js"></script>
+        <script src="../bootstrap/js/bootstrap-table.js"></script>
+        <script src="../bootstrap/js/jquery.datetimepicker.js"></script>  
+        <script src="../bootstrap/js/bootstrap-filestyle.js"></script>
+
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Students Performance</title>
+        <style>
+            .top_well{
+                background-color: rgb(22, 105, 173);
+            }
+            /*#thesistitle_label{
+                display: inline-block;
+                max-width: 300px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }*/
+
+            /* Popover */
+            /* .popover {
+                 border: 2px dotted red;
+             }*/
+            /* Popover Header */
+            .popover-title {
+                background-color: #31b0d5; 
+                color: #FFFFFF; 
+
+                text-align:center;
+            }
+            /* Popover Body */
+            .popover-content {
+                background-color: #fff7d7;
+                color: #000000;
+            }
+            /* Popover Arrow */
+            /* .arrow {
+                 border-right-color: red !important;
+             }*/
+
+        </style>
+        <script>
+            function preventBack(){window.history.forward();}
+    setTimeout("preventBack()", 0);
+                window.onunload=function(){null};
+            function operateFormatter1(value, row, index) {
+
+                var View_Details = '';
+                View_Details = '<a href="javascript:viod(0)" onclick=openModal1("' + row.session + '","' + row.sem_no + '") >Click To Get Registration Dtls.</a> </span>';
+
+
+                var button_array = [];
+                button_array[button_array.length] = View_Details;
+                return button_array.join('');
+            }
+
+            function operateFormatter2(value, row, index) {
+
+                var View_Details = '';
+                View_Details = '<a href="javascript:viod(0)" onclick=openModal2("' + row.rollno + '","' + row.semno + '","S") >Click To Get Performance Dtls.</a> </span>';
+                var button_array = [];
+                button_array[button_array.length] = View_Details;
+                return button_array.join('');
+            }
+
+            function openModal1(sess, sem)
+            {
+                var rollno = $("#rollno").val();
+                $('#studsessreg').bootstrapTable('refresh', {url: "Stud_Sess_Reg.htm?ses_no=" + sess + "&semester=" + sem + "&rollno=" + rollno});
+                $('#myModalLabel3').html('Session Wise Registration : ' + rollno);
+                $('#myModal3').modal('show');
+                if (parent.setFrameWH != null)
+                    parent.setFrameWH();
+            }
+
+
+
+            function openModal2(rollno, semno, val)
+            {
+
+                $('#studperf').bootstrapTable('refresh', {url: "Stud_Performance.htm?rollno=" + rollno + "&semno=" + semno + "&disp_val=" + val});
+                $('#myModalLabel2').html('Session Performance  : Rollno: ' + rollno + ' Semno :' + semno);
+                $('#myModal2').modal('show');
+                if (parent.setFrameWH != null)
+                    parent.setFrameWH();
+            }
+
+            function openModal3(val)
+            {
+                var rollno = $("#rollno").val();
+                $('#studperf').bootstrapTable('refresh', {url: "Stud_Performance.htm?rollno=" + rollno + "&disp_val=" + val});
+                $('#myModalLabel2').html('Session Performance  : Rollno: ' + rollno);
+                $('#myModal2').modal('show');
+                if (parent.setFrameWH != null)
+                    parent.setFrameWH();
+            }
+        </script>
+
+    </head>
+    <body>
+        <input type="hidden" id="rollno" value="20EE10099"/>
+        <input type="hidden" id="name" value="Aryaman Vikram Todi"/>
+        <input type="hidden" id="deptname" value="ELECTRICAL ENGINEERING"/>
+        <input type="hidden" id="coursename" value="ELECTRICAL ENGG. (B.Tech 4Y)                                          "/>
+        <input type="hidden" id="deptcode" value=""/>
+
+        <div class="container-fluid">
+            <div class=" nav navbar-static-top navbar-btn well well-sm top_well">
+
+                <div class="col-md-1 hidden-sm hidden-xs">
+                    <img  height="50"  src="../images/iit_small.gif"/>
+                </div>
+                <div class="col-xs-8 col-md-9 " align="center">
+                    <h3> <font color="white" >Welcome to IIT Kharagpur </font></h3>
+                    
+                </div>
+                <div class="col-xs-4 col-md-2 pull-left">
+                    <a href="logOut.htm"><span style="color:red;font-size: 20px;font-weight: bold;background-color: white;" > Sign Out</span></a> 
+                    
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="panel panel-info" id="tabs">
+            <div class="panel-heading" align="center">
+                <h4><b>Student Details </b></h4>
+            </div>
+            <div class="container-fluid form-inline well well-sm alert alert-info"> 
+
+                <div class="form-group" >
+                    <label for="refer_rad" >Rollno No :</label>&nbsp;&nbsp;
+                    20EE10099
+                </div>
+                <div class="form-group" >
+                    <label for="refer_rad" >Name</label>&nbsp;&nbsp;
+                    Aryaman Vikram Todi
+                </div>
+                <div class="form-group" >
+                    <label for="refer_rad" >Course</label>&nbsp;&nbsp;
+                    ELECTRICAL ENGG. (B.Tech 4Y)                                          
+                </div>
+            </div></div>
+        <div class="panel panel-info" id="tabs"><div class="container-fluid form-inline well well-sm alert alert-info">
+                <div class="form-group" >
+                    <label for="refer_rad" >Registration Details</label>&nbsp;&nbsp;
+
+                </div> </div>
+            <table id ="studentregdtls"  class="table table-responsive " data-url="StudentRegDtls.htm?rollno=20EE10099 " 
+                   data-toggle="table" data-method="post"  
+                   data-row-style="rowStyle"  >
+                <thead class="bg-warning">
+                    <tr>
+                        <th data-field="session">Session</th>
+                        <th data-field="sem_no">Semester</th>
+                        <th data-formatter="operateFormatter1" data-align="center" class="small"  >Click To Get Registration Dtls. </th>
+                    </tr>
+                </thead>
+
+            </table>
+
+        </div>
+        <div class="panel panel-info" id="tabs">
+            <div class="container-fluid form-inline well well-sm alert alert-info">
+                <div class="form-group" >
+                    <label for="refer_rad" >Performance Details</label>&nbsp;&nbsp;
+                    <!--<label for="refer_rad" > <a href="javascript:viod(0)" onclick=openModal3("A") >Click To Get Full Performance</a></label>&nbsp;&nbsp;-->
+                </div>   </div>
+            <table id ="studentregdtls"  class="table table-responsive " data-url="StudentPerfDtls.htm?rollno=20EE10099" 
+                   data-toggle="table" data-method="post"  
+                   data-row-style="rowStyle"  >
+                <thead class="bg-warning">
+                    <tr>
+                        <th data-field="semno">Semno</th>
+                        <th data-field="tcttcc">TCT - TCC</th>
+                        <th data-field="sctscc">SCT - SCC</th>
+                        <th data-field="nccgsg">NCGPA - CGPA - SGPA </th>
+                        <th data-field="atctatcc">ATCT - ATCC </th>
+                        <th data-field="asctascc">ASCT - ASCC</th>
+                        <th data-field="acgasg">ACGPA - ASGPA </th>
+                        <!--<th data-formatter="operateFormatter2" data-align="center" class="small"  >Click To Get Performance. </th>-->
+                    </tr>
+                </thead>
+
+            </table>          
+
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="modal-dialog" style="width: 90%;height: 90%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel3"></h4>
+                        <input type="hidden" name="indexNo" id="indexNo" vale=""/>
+                    </div><div class="modal-footer">
+
+
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                    <div class="modal-body" id="myModalBody" >    
+                        <table id="studsessreg" data-toggle="table" data-method="post"  
+                               data-cache="false" data-sort-order="asc"   
+                                data-search-align="left"                                            
+                               class="table table-bordered table-condensed table-hover" data-row-style="rowStyle1" >
+                            <thead class="bg-primary">
+                                <tr> 
+                                     
+                                    <th  data-field="subno"  class="small">Subno</th>
+                                    <th  data-field="subname"  class="small">Subame</th>
+                                    <th  data-field="ltp"  class="small">Ltp</th>
+                                    <th  data-field="crd"  class="small">Crd</th>
+                                    <th  data-field="sub_type"  class="small">Sub_Type</th>
+                                    <th  data-field="grade1"  class="small">Grade</th>
+
+
+                                </tr>
+                            </thead>
+                        </table> 
+
+                        <script>
+                        </script>  
+
+                    </div>
+                    <div class="modal-footer">
+
+
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="modal-dialog" style="width: 90%;height: 90%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel2"></h4>
+                        <input type="hidden" name="indexNo" id="indexNo" vale=""/>
+                    </div><div class="modal-footer">
+
+
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                    <div class="modal-body" id="myModalBody" >    
+                        <table id="studperf" data-toggle="table" data-method="post"  
+                               data-cache="false" data-sort-order="asc"   
+                               data-search-align="left"                                            
+                               class="table table-bordered table-condensed table-hover" data-row-style="rowStyle1" >
+                            <thead class="bg-primary">
+                                <tr> 
+                                    <th  data-field="semno"  class="small">Semno</th>
+                                    <th  data-field="subno"  class="small">Subno</th>
+                                    <th  data-field="subname"  class="small">Subame</th>
+                                    <th  data-field="ltp"  class="small">Ltp</th>
+                                    <th  data-field="crd"  class="small">Crd</th>
+                                    <th  data-field="grade"  class="small">Grade</th>
+
+
+                                </tr>
+                            </thead>
+                        </table> 
+
+                        <script>
+                        </script>  
+
+                    </div>
+                    <div class="modal-footer">
+
+
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Footer -->
+        
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Footer Page</title>
+        <style type="text/css">
+
+            footer{
+                height: 30px; 
+                float: bottom;
+                text-align: center;
+                width:100%;
+                background-color:#24478F;
+            }             
+            
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid" style="padding-left: 0px; padding-right: 0px; padding-top: 5px">
+        <footer>
+            <div class="panel panel-sucess">
+                <!--div class="panel-footer"-->
+                    <div class="col-md-12 panel-footer">
+                        <p class="text-left">Copyright &copy; ERP Systems, IIT Kharagpur</p>
+                    </div>
+                     
+                <!--/div-->
+            </div>
+        </footer>
+            
+        </div>
+    </body>
+</html>
+  
+        <div id="custom_form_div"></div>
+    </body>
+</html>

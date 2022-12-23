@@ -1,0 +1,51 @@
+{% extends "core/base.html" %}
+{% load bootstrap5 %}
+{% block title %}
+    Home
+{% endblock title %}
+{% block content %}
+    <h1>Home Page or smth</h1>
+    <p>Some text. Some pages require authentication. Don't ask rn, I'll create something later.</p>
+    <p>Better alternative for StudentPerformanceV2! No captchas!</p>
+    <h3>Some links:</h3>
+    <p>
+        <a href="{% url 'student-add' %}">Add a new student</a>
+    </p>
+    <p>
+        <a href="{% url 'student-list' %}">View list</a>
+    </p>
+    <p>
+        <a href="https://github.com/Yureien/GradeChecker">GitHub Repo</a>
+    </p>
+    <hr />
+    <h3>Upcoming features</h3>
+    <ul>
+        <li>Ability to add multiple students at once</li>
+        <li>
+            <a href="https://spookbite-kronos2-0-app-8fonfc.streamlit.app/">Kronos2.0</a> replacement to view grades that are 100% accurate and hopefully up-to-date
+        </li>
+        <li>Some more features I can think of later</li>
+        <li>I should add this to my resume lol</li>
+        <li>Better frickin' UI</li>
+    </ul>
+    <hr />
+    The below form ONLY works if the user is added. If they are not added, <a href="{% url 'student-add' %}">add them here</a>.
+    <form method="get" action="{% url 'student-show' %}">
+        <div class="form-group">
+            <label for="roll_number">Student ID</label>
+            <input type="text"
+                   class="form-control"
+                   id="roll_number"
+                   name="rollno"
+                   placeholder="Roll Number"/>
+            <label for="dob">Date of Birth</label>
+            <input type="text"
+                   class="form-control"
+                   id="dob"
+                   name="dob"
+                   placeholder="yyyy-mm-dd"/>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Check</button>
+    </form>
+{% endblock content %}
