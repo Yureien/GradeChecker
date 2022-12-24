@@ -11,8 +11,7 @@ class Student(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     roll_number = models.CharField(max_length=10, unique=True)
     year_enrolled = models.IntegerField(
-        validators=[MinValueValidator(2000), MaxValueValidator(2100)],
-        null=True,
+        validators=[MinValueValidator(2000), MaxValueValidator(2100)]
     )
     department = models.CharField(max_length=3, blank=True, null=True)
     date_of_birth = models.DateField()
@@ -117,8 +116,8 @@ class Student(models.Model):
 
 class Semester(models.Model):
     class SemesterPeriod(models.IntegerChoices):
-        AUTUMN = 1, "Autumn"
-        SPRING = 2, "Spring"
+        SPRING = 1, "Spring"
+        AUTUMN = 2, "Autumn"
 
     year = models.IntegerField(
         validators=[MinValueValidator(2000), MaxValueValidator(2100)]
