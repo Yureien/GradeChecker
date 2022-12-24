@@ -16,9 +16,7 @@
             </div>
         </div>
         <div class="card-body">
-            {% if not request.user.is_authenticated %}
-                <p class="text-error">You need to be logged in to see the users added by you</p>
-            {% endif %}
+            Sort by CGPA (reversed) to get your rank. Filter by department if you want.
             <!-- TODO: Fix below abomination -->
             <form id="query-form">
                 <div class="row my-2 align-items-center">
@@ -137,6 +135,13 @@
                 <table class="table align-middle">
                     <thead>
                         <tr>
+                            {% if request.GET.sort_rcgpa == "on" %}
+                            <th>Rank</th>
+                            {% elif request.GET.sort_cgpa == "on" %}
+                            <th>Rev. Rank</th>
+                            {% else %}
+                            <th>No.</th>
+                            {% endif %}
                             {% if request.user.is_authenticated %}
                                 <th>Roll Number</th>
                                 <th>Name</th>
@@ -152,6 +157,7 @@
                     <tbody class="table-group-divider">
                         {% for student in students %}
                             <tr>
+                                <td>{{ forloop.counter }}</td>
                                 {% if request.user.is_authenticated %}
                                     <td>{{ student.roll_number }}</td>
                                     <td>{{ student.name }}</td>
