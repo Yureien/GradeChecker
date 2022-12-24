@@ -1,33 +1,63 @@
 {% extends "core/base.html" %}
 {% load bootstrap5 %}
 {% block title %}
-    Home
+    GradeChecker
 {% endblock title %}
 {% block content %}
-    <h1>Home Page or smth</h1>
-    <p>Some text. Some pages require authentication. Don't ask rn, I'll create something later.</p>
-    <p>Better alternative for StudentPerformanceV2! No captchas!</p>
-    <h3>Some links:</h3>
+    <h1>GradeChecker</h1>
+    <h3>What is this?</h3>
     <p>
-        <a href="{% url 'student-add' %}">Add a new student</a>
+        GradeChecker was built to create a rank list of students (which is not officially released) <b>while preserving privacy</b>,
+        and to calculate statistics, such as the median/average grades of a department, your detailed performance, etc.
+        It is also being built as an alternative to Kronos2.0. While Kronos2.0 uses some hardcoded values to calculate
+        the grading curve of a particular subject, this site can automatically calculate using the grades of different students.
+        <b>However, for this to be effective, we need the data of as many students as possible</b>. You can help by
+        adding yourself and/or your friends to this site. Enjoy!
     </p>
+    <h3>How to use this?</h3>
     <p>
-        <a href="{% url 'student-list' %}">View list</a>
+        To add someone, you need their <b>roll number</b> and <b>date of birth</b>. Once you have the information,
+        head on to <a href="{% url 'student-add' %}">Add a new student</a> to add someone.
+        To view the rank list, head on to <a href="{% url 'student-list' %}">View list</a>.
+        To view the grades of a particular student, use the form at the bottom of this page.
     </p>
+    <h3>How does it work?</h3>
     <p>
-        <a href="https://github.com/Yureien/GradeChecker">GitHub Repo</a>
+        There is a ERP portal, <a href="https://erp.iitkgp.ac.in/StudentPerformanceV2/auth/login.htm">StudentPerformanceV2</a>.
+        This website just collects data from the portal and is aggregated to calculate various things.
     </p>
-    <hr />
-    <h3>Upcoming features</h3>
+    <h3>Your privacy is protected.</h3>
+    <p>
+        The rank list only shows the CGPA and department/course. Therefore, no one will be able to identify you.
+        That's why it is requested you add your data to the site, since the collected data will be useful for all.
+    </p>
+    <h3>Links</h3>
     <ul>
-        <li>Ability to add multiple students at once</li>
         <li>
-            <a href="https://spookbite-kronos2-0-app-8fonfc.streamlit.app/">Kronos2.0</a> replacement to view grades that are 100% accurate and hopefully up-to-date
+            <a href="{% url 'student-add' %}">Add a new student</a>
         </li>
-        <li>Some more features I can think of later</li>
-        <li>I should add this to my resume lol</li>
-        <li>Better frickin' UI</li>
+        <li>
+            <a href="{% url 'student-list' %}">View list</a>
+        </li>
+        <li>
+            <a href="https://github.com/Yureien/GradeChecker">GitHub Repo</a>
+        </li>
+        <li>
+            <a href="https://spookbite-kronos2-0-app-8fonfc.streamlit.app/">Kronos2.0</a>, alternative to view a course's grading scheme. Not always updated.
+        </li>
     </ul>
+    <h3>Upcoming features</h3>
+    <p>
+        <ul>
+            <li>Ability to add multiple students at once</li>
+            <li>Statistics page, both personal and aggregated</li>
+            <li>
+                <a href="https://spookbite-kronos2-0-app-8fonfc.streamlit.app/">Kronos2.0</a> replacement to view grading curves of subjects
+            </li>
+            <li>Better frickin' UI</li>
+        </ul>
+        PS: Any help is appreciated, whether you add data or update code. If you want to contribute to the code, just go to the GitHub repo.
+    </p>
     <hr />
     The below form ONLY works if the user is added. If they are not added, <a href="{% url 'student-add' %}">add them here</a>.
     <form method="get" action="{% url 'student-show' %}">
