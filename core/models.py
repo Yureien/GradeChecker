@@ -34,6 +34,7 @@ class Student(models.Model):
                 dept = "EE"
             if dept == "MF":
                 dept = "ME"
+            self.department = dept
         super().save()
 
     def update(self):
