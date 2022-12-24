@@ -10,7 +10,7 @@ from django.forms import ValidationError
 from django.db.models import QuerySet, Avg, Count
 
 from core.forms import CreateStudentForm
-from core.models import Student, StudentSemester
+from core.models import Student, StudentSemester, Semester
 
 
 class HomeView(View):
@@ -125,5 +125,15 @@ class StatisticsView(TemplateView):
         context["dept_cg"] = (
             Student.objects.all().values("department").annotate(cgpa=Avg("cgpa"))
         )
+
+        context["sem_dept_sg"] = [
+            {
+                "semester": semester,
+                "dept_sg": StudentSemester.objects.filter(semester=semester)
+                .values("student__department")
+                .annotate(sgpa=Avg("sgpa")),
+            }
+            for semester in Semester.objects.all()
+        ]
 
         return context

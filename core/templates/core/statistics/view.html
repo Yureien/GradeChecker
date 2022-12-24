@@ -45,6 +45,44 @@
             {% endfor %}
         </tbody>
     </table>
+    <h3>Semester-wise Department Average SGPA</h3>
+    <div class="accordion" id="sem_dept_sg_accordion">
+        {% for data in sem_dept_sg reversed %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading-{{ data.semester.pk }}">
+                    <button class="accordion-button {% if forloop.counter0 != 0 %}collapsed{% endif %}"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapse-{{ data.semester.pk }}"
+                            aria-expanded="{% if forloop.counter0 == 0 %}true{% else %}false{% endif %}"
+                            aria-controls="collapse-{{ data.semester.pk }}">
+                        {{ data.semester }}
+                    </button>
+                </h2>
+                <div id="collapse-{{ data.semester.pk }}"
+                     class="accordion-collapse collapse {% if forloop.counter0 == 0 %}show{% endif %} p-4"
+                     aria-labelledby="{{ data.semester.pk }}"
+                     data-bs-parent="#sem_dept_sg_accordion">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Department</th>
+                                <th>Average CGPA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in data.dept_sg %}
+                                <tr>
+                                    <th>{{ item.student__department }}</th>
+                                    <td>{{ item.sgpa|floatformat:2 }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
     <br />
     <h2>More statistics to come soon!</h2>
 {% endblock content %}
