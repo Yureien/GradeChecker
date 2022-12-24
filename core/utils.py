@@ -1,9 +1,9 @@
 from io import BytesIO
 import typing as t
 from datetime import date
-import re
 
 from PIL import Image
+from bs4 import BeautifulSoup
 import numpy as np
 import cv2
 import pytesseract
@@ -30,9 +30,6 @@ else:
 
 PYTESSERACT_CONFIG = "-l eng --psm 8 --oem 3 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 CAPTCHA_SOLVE_ATTEMPTS = 3
-STUDENT_REGEX = re.compile(
-    r'<label for="refer_rad" >\s*([a-zA-Z\s]+):?</label>(?:&nbsp;)*\s*([a-zA-Z0-9 .*()_;,/\-]*)\s*</div>'
-)
 
 
 def get_data(roll_number: str, date_of_birth: date) -> t.Dict[str, t.Any]:
@@ -44,11 +41,16 @@ def get_data(roll_number: str, date_of_birth: date) -> t.Dict[str, t.Any]:
 
     data = {"semesters": [], "year": year}
 
-    data_list = STUDENT_REGEX.findall(content)
-    for key, value in data_list:
-        if key == "Name":
+    soup = BeautifulSoup(content, "html.parser")
+    data_list = soup.find_all("input", {"type": "hidden"})
+    for item in data_list:
+        id = item.get("id")
+        value = item.get("value")
+        if not item or not value:
+            continue
+        if id == "name":
             data["name"] = value.strip()
-        if key == "Course":
+        if id == "coursename":
             data["course"] = value.strip()
 
     subjects = {}
