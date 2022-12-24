@@ -4,8 +4,6 @@ LABEL name=grade-checker \
     version=0.1.0 \
     maintainer="Soham Sen <contact@sohamsen.me>"
 
-CMD ["docker/run.sh"]
-
 EXPOSE 8000
 
 ENV APP_ROOT=/opt/app \
@@ -34,3 +32,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . $APP_ROOT
 
 RUN python $APP_ROOT/manage.py collectstatic --no-input
+
+ENTRYPOINT ["docker/run.sh"]
