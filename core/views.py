@@ -119,11 +119,17 @@ class StatisticsView(TemplateView):
         context["students_count"] = Student.objects.all().count()
 
         context["dept_count"] = (
-            Student.objects.all().values("department").annotate(count=Count("id"))
+            Student.objects.all()
+            .values("department")
+            .annotate(count=Count("id"))
+            .order_by("-count")
         )
 
         context["dept_cg"] = (
-            Student.objects.all().values("department").annotate(cgpa=Avg("cgpa"))
+            Student.objects.all()
+            .values("department")
+            .annotate(cgpa=Avg("cgpa"))
+            .order_by("-cgpa")
         )
 
         context["sem_dept_sg"] = [
@@ -131,7 +137,8 @@ class StatisticsView(TemplateView):
                 "semester": semester,
                 "dept_sg": StudentSemester.objects.filter(semester=semester)
                 .values("student__department")
-                .annotate(sgpa=Avg("sgpa")),
+                .annotate(sgpa=Avg("sgpa"))
+                .order_by("-sgpa"),
             }
             for semester in Semester.objects.all()
         ]
