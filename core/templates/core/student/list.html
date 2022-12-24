@@ -19,140 +19,175 @@
             {% if not request.user.is_authenticated %}
                 <p class="text-error">You need to be logged in to see the users added by you</p>
             {% endif %}
-            <h6>Sort By</h6>
             <!-- TODO: Fix below abomination -->
-            <form id="sort-form">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input"
-                           type="checkbox"
-                           id="sortDept"
-                           name="sort_dept"
-                           {% if request.GET.sort_dept == "on" %}checked{% endif %}/>
-                    <label class="form-check-label" for="sortDept">Department</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input"
-                           type="checkbox"
-                           id="sortCG"
-                           name="sort_cgpa"
-                           {% if request.GET.sort_cgpa == "on" %}checked{% endif %}/>
-                    <label class="form-check-label" for="sortCG">CGPA</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input"
-                           type="checkbox"
-                           id="sortrDept"
-                           name="sort_rdept"
-                           {% if request.GET.sort_rdept == "on" %}checked{% endif %}/>
-                    <label class="form-check-label" for="sortrDept">Department (Reversed)</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input"
-                           type="checkbox"
-                           id="sortrCG"
-                           name="sort_rcgpa"
-                           {% if request.GET.sort_rcgpa == "on" %}checked{% endif %}/>
-                    <label class="form-check-label" for="sortrCG">CGPA (Reversed)</label>
-                </div>
-                {% if request.user.is_authenticated %}
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input"
-                               type="checkbox"
-                               id="sortRollno"
-                               name="sort_rollno"
-                               {% if request.GET.sort_rollno == "on" %}checked{% endif %}/>
-                        <label class="form-check-label" for="sortRollno">Roll No.</label>
+            <form id="query-form">
+                <div class="row my-2 align-items-center">
+                    <div class="col-12 col-md-1">
+                        <h6 class="m-0">Sort By</h6>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input"
-                               type="checkbox"
-                               id="sortrRollno"
-                               name="sort_rrollno"
-                               {% if request.GET.sort_rrollno == "on" %}checked{% endif %}/>
-                        <label class="form-check-label" for="sortrRollno">Roll No. (Reversed)</label>
+                    <div class="col-12 col-md-11">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="sortDept"
+                                   name="sort_dept"
+                                   {% if request.GET.sort_dept == "on" %}checked{% endif %}/>
+                            <label class="form-check-label" for="sortDept">Department</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="sortCG"
+                                   name="sort_cgpa"
+                                   {% if request.GET.sort_cgpa == "on" %}checked{% endif %}/>
+                            <label class="form-check-label" for="sortCG">CGPA</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="sortrDept"
+                                   name="sort_rdept"
+                                   {% if request.GET.sort_rdept == "on" %}checked{% endif %}/>
+                            <label class="form-check-label" for="sortrDept">Department (Reversed)</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="sortrCG"
+                                   name="sort_rcgpa"
+                                   {% if request.GET.sort_rcgpa == "on" %}checked{% endif %}/>
+                            <label class="form-check-label" for="sortrCG">CGPA (Reversed)</label>
+                        </div>
+                        {% if request.user.is_authenticated %}
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       id="sortRollno"
+                                       name="sort_rollno"
+                                       {% if request.GET.sort_rollno == "on" %}checked{% endif %}/>
+                                <label class="form-check-label" for="sortRollno">Roll No.</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       id="sortrRollno"
+                                       name="sort_rrollno"
+                                       {% if request.GET.sort_rrollno == "on" %}checked{% endif %}/>
+                                <label class="form-check-label" for="sortrRollno">Roll No. (Reversed)</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       id="sortName"
+                                       name="sort_name"
+                                       {% if request.GET.sort_name == "on" %}checked{% endif %}/>
+                                <label class="form-check-label" for="sortName">Name</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       id="sortrName"
+                                       name="sort_rname"
+                                       {% if request.GET.sort_rname == "on" %}checked{% endif %}/>
+                                <label class="form-check-label" for="sortrName">Name (Reversed)</label>
+                            </div>
+                        {% endif %}
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input"
-                               type="checkbox"
-                               id="sortName"
-                               name="sort_name"
-                               {% if request.GET.sort_name == "on" %}checked{% endif %}/>
-                        <label class="form-check-label" for="sortName">Name</label>
+                </div>
+                <div class="row my-2 align-items-center">
+                    <div class="col-12 col-md-1">
+                        <h6 class="m-0">Filter By</h6>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input"
-                               type="checkbox"
-                               id="sortrName"
-                               name="sort_rname"
-                               {% if request.GET.sort_rname == "on" %}checked{% endif %}/>
-                        <label class="form-check-label" for="sortrName">Name (Reversed)</label>
+                    <div class="col-12 col-md-11">
+                        <div class="row align-self-center">
+                            <div class="col-12 col-md-3">
+                                <label class="visually-hidden" for="autoSizingInputDept">Department</label>
+                                <input type="text"
+                                       class="form-control-sm"
+                                       id="autoSizingInputDept"
+                                       style="width: 100%"
+                                       maxlength="2"
+                                       name="filter_dept"
+                                       value="{{ request.GET.filter_dept }}"
+                                       placeholder="Department (CS, EE, ME, etc.)"/>
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <label class="visually-hidden" for="autoSizingInputYear">Year</label>
+                                <input type="text"
+                                       class="form-control-sm"
+                                       id="autoSizingInputYear"
+                                       style="width: 100%"
+                                       maxlength="4"
+                                       name="filter_year"
+                                       value="{{ request.GET.filter_year }}"
+                                       placeholder="Year"/>
+                            </div>
+                        </div>
                     </div>
-                {% endif %}
+                </div>
             </form>
             <script>
             $(document).ready(function () {
-                $('#sort-form').on('change', function () {
+                $('#query-form').on('change', function () {
                     $(this).submit();
                 });
             });
             </script>
-            <table class="table align-middle">
-                <thead>
-                    <tr>
-                        <th>Roll Number</th>
-                        <th>Name</th>
-                        <th>Department</th>
-                        <th>Course</th>
-                        <th>CGPA</th>
-                        <th>ACGPA</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                    {% for student in students %}
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
                         <tr>
-                            <td>
-                                {% if request.user.is_authenticated %}
-                                    {{ student.roll_number }}
-                                {% else %}
-                                    CENSORED
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if request.user.is_authenticated %}
-                                    {{ student.name }}
-                                {% else %}
-                                    CENSORED
-                                {% endif %}
-                            </td>
-                            <td>{{ student.department }}</td>
-                            <td>{{ student.course }}</td>
-                            <td>{{ student.cgpa }}</td>
-                            <td>
-                                {% if request.user.is_authenticated %}
-                                    {{ student.acgpa }}
-                                {% else %}
-                                    CENSORED
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if request.user.is_authenticated %}
-                                    <a class="btn btn-sm btn-primary"
-                                       href="{% url 'student-detail' pk=student.id %}">View</a>
-                                {% else %}
-                                    No.
-                                {% endif %}
-                            </td>
+                            {% if request.user.is_authenticated %}
+                                <th>Roll Number</th>
+                                <th>Name</th>
+                            {% endif %}
+                            <th>Year Enrolled</th>
+                            <th>Department</th>
+                            <th>Course</th>
+                            <th>CGPA</th>
+                            <th>SGPA (Latest)</th>
+                            {% if request.user.is_authenticated %}<th>Actions</th>{% endif %}
                         </tr>
-                    {% empty %}
-                        <tr>
-                            <td>
-                                <td colspan="3">No students found</td>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        {% for student in students %}
+                            <tr>
+                                {% if request.user.is_authenticated %}
+                                    <td>{{ student.roll_number }}</td>
+                                    <td>{{ student.name }}</td>
+                                {% endif %}
+                                <td>{{ student.year_enrolled }}</td>
+                                <td>
+                                    {{ student.department }}
+                                </td>
+                                <td>
+                                    {{ student.course }}
+                                </td>
+                                <td>
+                                    {{ student.cgpa }}
+                                </td>
+                                <td>
+                                    {{ student.sgpa_latest }}
+                                </td>
+                                {% if request.user.is_authenticated %}
+                                    <td>
+                                        <a class="btn btn-sm btn-primary"
+                                           href="{% url 'student-detail' pk=student.id %}">View</a>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td>
+                                    <td colspan="3">
+                                        No students found
+                                    </td>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 {% endblock content %}

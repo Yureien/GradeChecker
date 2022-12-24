@@ -10,6 +10,10 @@ from core.utils import get_data
 class Student(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     roll_number = models.CharField(max_length=10, unique=True)
+    year_enrolled = models.IntegerField(
+        validators=[MinValueValidator(2000), MaxValueValidator(2100)],
+        null=True,
+    )
     department = models.CharField(max_length=3, blank=True, null=True)
     date_of_birth = models.DateField()
     name = models.CharField(max_length=128, blank=True, null=True)
@@ -25,6 +29,10 @@ class Student(models.Model):
         else:
             return f"{self.roll_number}"
 
+    @property
+    def sgpa_latest(self):
+        return self.studentsemester_set.latest("number").sgpa
+
     def save(self):
         if self.department is None:
             dept = self.roll_number[2:4]
@@ -35,6 +43,8 @@ class Student(models.Model):
             if dept == "MF":
                 dept = "ME"
             self.department = dept
+        if self.year_enrolled is None:
+            self.year_enrolled = 2000 + int(self.roll_number[:2])
         super().save()
 
     def update(self):

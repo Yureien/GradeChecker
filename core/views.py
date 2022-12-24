@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.forms import ValidationError
+from django.db.models import QuerySet
 
 from core.forms import CreateStudentForm
 from core.models import Student, StudentSemester
@@ -95,3 +96,15 @@ class StudentListView(ListView):
             if self.request.GET.get("sort_rrrollno"):
                 ordering.append("-roll_number")
         return ordering
+
+    def get_queryset(self) -> QuerySet[t.Any]:
+        queryset = super().get_queryset()
+        if dept := self.request.GET.get("filter_dept"):
+            if len(dept) == 2:
+                queryset = queryset.filter(department=dept)
+        if year := self.request.GET.get("filter_year"):
+            if len(year) == 4 and year.isdigit():
+                queryset = queryset.filter(year_enrolled=int(year))
+            elif len(year) == 2 and year.isdigit():
+                queryset = queryset.filter(year_enrolled=2000 + int(year))
+        return queryset
