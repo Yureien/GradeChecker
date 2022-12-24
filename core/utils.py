@@ -31,7 +31,7 @@ else:
 PYTESSERACT_CONFIG = "-l eng --psm 8 --oem 3 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 CAPTCHA_SOLVE_ATTEMPTS = 3
 STUDENT_REGEX = re.compile(
-    '<label for="refer_rad" >\s*([a-zA-Z\s]+):?</label>(?:&nbsp;)*\s*([a-zA-Z0-9 .*()_;,]*)\s*</div>'
+    r'<label for="refer_rad" >\s*([a-zA-Z\s]+):?</label>(?:&nbsp;)*\s*([a-zA-Z0-9 .*()_;,/]*)\s*</div>'
 )
 
 
