@@ -1,0 +1,50 @@
+{% extends "core/base.html" %}
+{% load bootstrap5 %}
+{% block title %}
+    Statistics
+{% endblock title %}
+{% block content %}
+    <h1>Statistics</h1>
+    <table class="table table-borderless">
+        <tr>
+            <th>Students Registered</th>
+            <td>{{ students_count }}</td>
+        </tr>
+    </table>
+    <h3>Department-wise Students Registered</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Department</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in dept_count %}
+                <tr>
+                    <th>{{ data.department }}</th>
+                    <td>{{ data.count }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>Department-wise Average CGPA</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Department</th>
+                <th>Average CGPA</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in dept_cg %}
+                <tr>
+                    <th>{{ data.department }}</th>
+                    <td>{{ data.cgpa|floatformat:2 }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br />
+    <h2>More statistics to come soon!</h2>
+{% endblock content %}

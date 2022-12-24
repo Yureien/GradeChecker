@@ -1,13 +1,13 @@
 import typing as t
 
 from django.shortcuts import render
-from django.views.generic import DetailView, View, ListView, RedirectView
+from django.views.generic import DetailView, View, ListView, RedirectView, TemplateView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.forms import ValidationError
-from django.db.models import QuerySet
+from django.db.models import QuerySet, Avg, Count
 
 from core.forms import CreateStudentForm
 from core.models import Student, StudentSemester
@@ -108,3 +108,22 @@ class StudentListView(ListView):
             elif len(year) == 2 and year.isdigit():
                 queryset = queryset.filter(year_enrolled=2000 + int(year))
         return queryset
+
+
+class StatisticsView(TemplateView):
+    template_name = "core/statistics/view.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["students_count"] = Student.objects.all().count()
+
+        context["dept_count"] = (
+            Student.objects.all().values("department").annotate(count=Count("id"))
+        )
+
+        context["dept_cg"] = (
+            Student.objects.all().values("department").annotate(cgpa=Avg("cgpa"))
+        )
+
+        return context

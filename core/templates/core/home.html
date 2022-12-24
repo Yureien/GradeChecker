@@ -11,6 +11,7 @@
         and to calculate statistics, such as the median/average grades of a department, your detailed performance, etc.
         It is also being built as an alternative to Kronos2.0. While Kronos2.0 uses some hardcoded values to calculate
         the grading curve of a particular subject, this site can automatically calculate using the grades of different students.
+        <br />
         <b>However, for this to be effective, we need the data of as many students as possible</b>. You can help by
         adding yourself and/or your friends to this site. Enjoy!
     </p>
@@ -18,8 +19,12 @@
     <p>
         To add someone, you need their <b>roll number</b> and <b>date of birth</b>. Once you have the information,
         head on to <a href="{% url 'student-add' %}">Add a new student</a> to add someone.
+        <br />
         To view the rank list, head on to <a href="{% url 'student-list' %}">View list</a>.
+        <br />
         To view the grades of a particular student, use the form at the bottom of this page.
+        <br />
+        To view some statistics, head over to the <a href="{% url 'statistics' %}">Statistics</a> page.
     </p>
     <h3>How does it work?</h3>
     <p>
@@ -30,6 +35,8 @@
     <p>
         The rank list only shows the CGPA and department/course. Therefore, no one will be able to identify you.
         That's why it is requested you add your data to the site, since the collected data will be useful for all.
+        <br />
+        No additional information (beyond what StudentPerformanceV2 provides) is available or collected.
     </p>
     <h3>Links</h3>
     <ul>
