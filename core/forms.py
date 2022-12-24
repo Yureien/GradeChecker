@@ -36,8 +36,6 @@ class CreateStudentForm(forms.ModelForm):
         roll_number = cleaned_data.get("roll_number")
         date_of_birth = cleaned_data.get("date_of_birth")
 
-        print(roll_number, date_of_birth)
-
         if roll_number is None:
             raise forms.ValidationError("Invalid roll number")
 
