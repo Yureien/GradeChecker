@@ -34,4 +34,4 @@ COPY . $APP_ROOT
 RUN python $APP_ROOT/manage.py collectstatic --no-input
 
 ENTRYPOINT ["docker/run.sh"]
-CMD ["gunicorn", " -k uvicorn.workers.UvicornWorker", "-w 4", "-b :8000", "--log-file=-", "GradeChecker.asgi:application"]
+CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-w", "4", "-b", ":8000", "--log-file=-", "GradeChecker.asgi:application"]
