@@ -194,8 +194,9 @@ class StudentSubject(models.Model):
         return f"{self.student} - {self.subject}"
 
     def assign_grade(self, grade):
-        if grade not in self.Grade.values:
+        if grade not in ["EX", "A", "B", "C", "D", "P", "F"]:
             self.grade = self.Grade.U
+            return
         self.grade = self.Grade(getattr(self.Grade, grade))
 
     @property
