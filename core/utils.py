@@ -87,6 +87,8 @@ def get_data(roll_number: str, date_of_birth: date) -> t.Dict[str, t.Any]:
     try:
         resp_data = resp.json()
         for semester in resp_data:
+            if not semester["sctscc"]:
+                continue
             sctscc = [int(i.strip()) for i in semester["sctscc"].split("-")]
             tcttcc = [int(i.strip()) for i in semester["tcttcc"].split("-")]
             asctascc = [int(i.strip()) for i in semester["asctascc"].split("-")]
