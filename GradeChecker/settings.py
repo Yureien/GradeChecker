@@ -49,7 +49,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "bootstrap5",
     "bootstrap_datepicker_plus",
+    "rest_framework",
+    "rest_framework.authtoken",
     "core.apps.CoreConfig",
+    "api.apps.ApiConfig",
 ]
 
 MIDDLEWARE = [
