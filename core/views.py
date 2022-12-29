@@ -83,7 +83,7 @@ class StudentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Student
     template_name = "core/student/list.html"
     context_object_name = "students"
-    paginate_by = 250
+    paginate_by = 2500
 
     def get_ordering(self) -> t.Sequence[str]:
         ordering = []
