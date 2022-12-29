@@ -34,3 +34,5 @@ class StudentSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Captcha failed")
         except ScraperException as e:
             raise serializers.ValidationError(str(e))
+        
+        return super().validate(data)

@@ -8,6 +8,7 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.forms import ValidationError
 from django.db.models import QuerySet, Avg, Count
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from core.forms import CreateStudentForm
 from core.models import Student, StudentSemester, Semester
@@ -15,10 +16,13 @@ from core.models import Student, StudentSemester, Semester
 
 class HomeView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, "core/home.html")
+        if request.user.is_authenticated:
+            return render(request, "core/home.html")
+        return render(request, "core/home_anonymous.html")
 
 
-class StudentShowView(RedirectView):
+class StudentShowView(LoginRequiredMixin, PermissionRequiredMixin, RedirectView):
+    permission_required = "core.view_student"
     permanent = False
 
     def get_redirect_url(self, *args, **kwargs):
@@ -39,7 +43,8 @@ class StudentShowView(RedirectView):
             return reverse_lazy("home")
 
 
-class StudentFormView(CreateView):
+class StudentFormView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = "core.view_student"
     template_name = "core/student/create.html"
     form_class = CreateStudentForm
 
@@ -51,7 +56,8 @@ class StudentFormView(CreateView):
         return reverse_lazy("student-detail", kwargs={"pk": self.object.id})
 
 
-class StudentDetailView(DetailView):
+class StudentDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    permission_required = "core.view_student"
     model = Student
     template_name = "core/student/detail.html"
     context_object_name = "student"
@@ -62,7 +68,9 @@ class StudentDetailView(DetailView):
         return context
 
 
-class StudentUpdateView(View):
+class StudentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    permission_required = "core.view_student"
+
     def post(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
         student = Student.objects.get(pk=pk)
@@ -70,10 +78,12 @@ class StudentUpdateView(View):
         return redirect("student-detail", pk=pk)
 
 
-class StudentListView(ListView):
+class StudentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = "core.view_student"
     model = Student
     template_name = "core/student/list.html"
     context_object_name = "students"
+    paginate_by = 100
 
     def get_ordering(self) -> t.Sequence[str]:
         ordering = []
@@ -110,7 +120,8 @@ class StudentListView(ListView):
         return queryset
 
 
-class StatisticsView(TemplateView):
+class StatisticsView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+    permission_required = "core.view_student"
     template_name = "core/statistics/view.html"
 
     def get_context_data(self, **kwargs):

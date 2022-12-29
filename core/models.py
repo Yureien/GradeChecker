@@ -32,7 +32,7 @@ class Student(models.Model):
     def sgpa_latest(self):
         return self.studentsemester_set.latest("number").sgpa
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if self.department is None:
             dept = self.roll_number[2:4]
             # TODO: Use a dict, and hopefully get rid of this abomination
@@ -44,7 +44,7 @@ class Student(models.Model):
             self.department = dept
         if self.year_enrolled is None:
             self.year_enrolled = 2000 + int(self.roll_number[:2])
-        super().save()
+        super().save(*args, **kwargs)
 
     def update(self):
         data = get_data(self.roll_number, self.date_of_birth)

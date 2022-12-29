@@ -187,8 +187,12 @@ def authenticate(
 def solve_captcha_from_code(code: str) -> str:
     url = f"https://erp.iitkgp.ac.in/StudentPerformanceV2/auth/PassImageServlet/{code}"
     response = requests.get(url)
-    image = Image.open(BytesIO(response.content))
-    return solve_captcha(image)
+    bytes_stream = BytesIO(response.content)
+    image = Image.open(bytes_stream)
+    text = solve_captcha(image)
+    image.close()
+    bytes_stream.close()
+    return text
 
 
 def solve_captcha(image: Image) -> str:
@@ -225,9 +229,10 @@ def solve_captcha(image: Image) -> str:
     repair_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 1))
     img = 255 - cv2.morphologyEx(img, cv2.MORPH_CLOSE, repair_kernel, iterations=1)
 
-    string = pytesseract.image_to_string(
-        Image.fromarray(img), config=PYTESSERACT_CONFIG, lang="eng"
-    )
+    pil_img = Image.fromarray(img)
+    string = pytesseract.image_to_string(pil_img, config=PYTESSERACT_CONFIG, lang="eng")
+    pil_img.close()
+
     string = string.strip().replace(" ", "")
     return string
 

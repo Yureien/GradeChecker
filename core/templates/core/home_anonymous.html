@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+{% load bootstrap5 %}
+{% load static %}
+{% block title %}
+    Mysterious Things Reside Here
+{% endblock title %}
+{% block head %}
+    {{ block.super }}
+    <style>
+        body {
+            background-color: #000000;
+        }
+    </style>
+{% endblock head %}
+{% block content %}
+    <h1 class="text-center text-white">Welcome to the Forbidden Lands</h1>
+    <div class="d-flex justify-content-center mt-4">
+        <img src="{% static 'core/not_allowed.jpeg' %}"
+             alt="Not Allowed"
+             class="img-fluid"/>
+    </div>
+{% endblock content %}
