@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.forms import ValidationError
-from django.db.models import QuerySet, Avg, Count
+from django.db.models import QuerySet, Avg, Count, Min, Max
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from core.forms import CreateStudentForm
@@ -146,10 +146,13 @@ class StatisticsView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         context["sem_dept_sg"] = [
             {
                 "semester": semester,
+                "id": semester.id,
                 "dept_sg": StudentSemester.objects.filter(semester=semester)
                 .values("student__department")
-                .annotate(sgpa=Avg("sgpa"))
-                .order_by("-sgpa"),
+                .annotate(avg_sgpa=Avg("sgpa"))
+                .annotate(min_sgpa=Min("sgpa"))
+                .annotate(max_sgpa=Max("sgpa"))
+                .order_by("-avg_sgpa"),
             }
             for semester in Semester.objects.all()
         ]

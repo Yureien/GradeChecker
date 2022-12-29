@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% load bootstrap5 %}
+{% load statistics %}
 {% block title %}
     Statistics
 {% endblock title %}
@@ -67,14 +68,22 @@
                         <thead>
                             <tr>
                                 <th>Department</th>
-                                <th>Average CGPA</th>
+                                <th>Average SGPA</th>
+                                <th>Minimum SGPA</th>
+                                <th>Maximum SGPA</th>
+                                <th># of Subjects With F Grade</th>
+                                <th># of Students Who Failed</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for item in data.dept_sg %}
                                 <tr>
                                     <th>{{ item.student__department }}</th>
-                                    <td>{{ item.sgpa|floatformat:2 }}</td>
+                                    <td>{{ item.avg_sgpa|floatformat:2 }}</td>
+                                    <td>{{ item.min_sgpa|floatformat:2 }}</td>
+                                    <td>{{ item.max_sgpa|floatformat:2 }}</td>
+                                    <td>{% get_fail_subjects_count data.id item.student__department %}</td>
+                                    <td>{% get_fail_students_count data.id item.student__department %}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
